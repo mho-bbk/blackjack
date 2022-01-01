@@ -1,5 +1,3 @@
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 public class BlackjackTest {
@@ -44,6 +42,9 @@ public class BlackjackTest {
 
     @org.junit.Test
     public void testPlay() {
-
+        Blackjack newGame = new Blackjack();
+        newGame.play();
+        newGame.printCurrentDeck();
+        newGame.printCurrentHand();
     }
 }
