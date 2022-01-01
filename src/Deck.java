@@ -31,8 +31,8 @@ public class Deck {
      */
     public String draw() {
         Random numGenerator = new Random();
-        //52 number of cards in a deck, so upper bound 9exclusive) 53
-        String card = cards.get(numGenerator.nextInt(53));
+        //52 number of cards in a deck
+        String card = cards.get(numGenerator.nextInt(52));
         cards.remove(card);
         return card;
     }
