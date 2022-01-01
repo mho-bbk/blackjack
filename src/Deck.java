@@ -32,7 +32,9 @@ public class Deck {
     public String draw() {
         Random numGenerator = new Random();
         //52 number of cards in a deck, so upper bound 9exclusive) 53
-        return cards.get(numGenerator.nextInt(53));
+        String card = cards.get(numGenerator.nextInt(53));
+        cards.remove(card);
+        return card;
     }
 
     public List<String> getCards() {
