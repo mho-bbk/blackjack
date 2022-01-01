@@ -1,3 +1,5 @@
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class BlackjackTest {
@@ -6,6 +8,13 @@ public class BlackjackTest {
     public void testDeckSize() {
         Deck deck = new Deck();
         assertEquals(52, deck.getCards().size());
+    }
+
+    @org.junit.Test
+    public void testDeckContent() {
+        Deck deck = new Deck();
+        //tests toString method which is overridden and helps us to see cards
+        System.out.println(deck);
     }
 
     @org.junit.Test
@@ -29,7 +38,7 @@ public class BlackjackTest {
     @org.junit.Test
     public void testCardRemoval() {
         Deck deck = new Deck();
-        String card = deck.draw();
+        deck.draw();
         assertEquals(51, deck.getCards().size());
     }
 

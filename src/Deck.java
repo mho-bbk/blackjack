@@ -40,4 +40,9 @@ public class Deck {
     public List<String> getCards() {
         return cards;
     }
+
+    @Override
+    public String toString() {
+        return cards.toString();
+    }
 }
