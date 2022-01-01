@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Deck {
 
-    private List<String> cards = new ArrayList<>();
+    private static List<String> cards = new ArrayList<>();
 //    private HashMap<Character, Integer> card_count = new HashMap<>();
 
     public Deck() {
@@ -26,11 +26,16 @@ public class Deck {
 
     /**
      * Draws a card from the deck at random.
+     * When a card is drawn, that card must be removed from the deck.
      * @return String representing the number (not the suit) of the card drawn
      */
     public String draw() {
         Random numGenerator = new Random();
         //52 number of cards in a deck, so upper bound 9exclusive) 53
         return cards.get(numGenerator.nextInt(53));
+    }
+
+    public List<String> getCards() {
+        return cards;
     }
 }

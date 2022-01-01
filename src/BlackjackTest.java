@@ -3,6 +3,12 @@ import static org.junit.Assert.*;
 public class BlackjackTest {
 
     @org.junit.Test
+    public void testDeckSize() {
+        Deck deck = new Deck();
+        assertEquals(52, deck.getCards().size());
+    }
+
+    @org.junit.Test
     public void testDraw() {
         Deck deck = new Deck();
 
@@ -17,6 +23,14 @@ public class BlackjackTest {
         };
 
         assertTrue(testResult);
+    }
+
+    //Test: that when you draw a card, the card is removed from the deck (so you cannot get a hand with eg 5 x 9s)
+    @org.junit.Test
+    public void testCardRemoval() {
+        Deck deck = new Deck();
+        String card = deck.draw();
+        assertEquals(51, deck.getCards().size());
     }
 
     @org.junit.Test
