@@ -4,7 +4,7 @@ public class Blackjack {
         //empty constructor
     }
 
-    public static void play() {
+    public void play() {
 
     }
 }
