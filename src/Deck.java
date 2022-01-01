@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class Deck {
 
@@ -24,10 +25,12 @@ public class Deck {
     }
 
     /**
-     *
-     * @return
+     * Draws a card from the deck at random.
+     * @return String representing the number (not the suit) of the card drawn
      */
     public String draw() {
-        return "stub";
+        Random numGenerator = new Random();
+        //52 number of cards in a deck, so upper bound 9exclusive) 53
+        return cards.get(numGenerator.nextInt(53));
     }
 }
