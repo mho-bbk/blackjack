@@ -1,10 +1,13 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Blackjack {
 
-    private static Deck deck = new Deck();
+    private Deck deck = new Deck();
     private static List<String> hand = new ArrayList<>();
+    private int score = 0;
 
     public Blackjack() {
         //empty constructor
@@ -12,6 +15,11 @@ public class Blackjack {
 
     public void play() {
         deal();
+        updateScore();
+
+        printCurrentHand();
+        printCurrentDeck();
+        printScore();
     }
 
     /**
@@ -24,11 +32,43 @@ public class Blackjack {
         hand.add(deck.draw());
     }
 
+    /**
+     * Calculates the score of the current hand
+     * @return int representing score of current hand
+     */
+    private int calculateScore() {
+        int score = 0;
+        for (String value: hand) {
+            try {
+                score += Integer.parseInt(value);
+            } catch(NumberFormatException nfe) {
+                switch(value) {
+                    case "K", "Q", "J" -> score += 10;
+                    //TODO - Ace can be 1 or 11 (player's choice)
+                    case "A" -> score += 1;
+                };
+            }
+        }
+        return score;
+    }
+
+    private void updateScore() {
+        score = calculateScore();
+    }
+
+    public int getScore() {
+        return score;
+    }
+
     public void printCurrentHand() {
         System.out.println("Current Hand: " + hand.toString());
     }
 
     public void printCurrentDeck() {
         System.out.println("Current Deck: " + deck.toString());
+    }
+
+    public void printScore() {
+        System.out.println("Current Score: " + score);
     }
 }

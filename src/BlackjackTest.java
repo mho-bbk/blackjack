@@ -44,7 +44,5 @@ public class BlackjackTest {
     public void testPlay() {
         Blackjack newGame = new Blackjack();
         newGame.play();
-        newGame.printCurrentDeck();
-        newGame.printCurrentHand();
     }
 }
