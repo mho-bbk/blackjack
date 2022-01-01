@@ -31,8 +31,8 @@ public class Deck {
      */
     public String draw() {
         Random numGenerator = new Random();
-        //52 number of cards in a deck
-        String card = cards.get(numGenerator.nextInt(52));
+        //size of the cards is constantly shrinking. numGenerator must change accordingly to avoid IndexOutOfBoundException
+        String card = cards.get(numGenerator.nextInt(cards.size()));
         cards.remove(card);
         return card;
     }
