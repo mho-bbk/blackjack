@@ -20,10 +20,7 @@ public class Blackjack {
         //Evaluate hand here in case 21 has been dealt
         evaluateHand();
 
-        if(validHand == 0) {
-            //stop game
-            System.out.println("Congratulations! You've won the game.");
-        } else {
+        if(!gameOver) {
             printGame();
 
             Scanner scan = new Scanner(System.in);

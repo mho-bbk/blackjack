@@ -1,6 +1,6 @@
 import static org.junit.Assert.*;
 
-public class BlackjackTest {
+public class DeckTest {
 
     @org.junit.Test
     public void testDeckSize() {
@@ -19,8 +19,8 @@ public class BlackjackTest {
     public void testDraw() {
         Deck deck = new Deck();
 
-        //Test: draw a random card and certify that it's a valid card in a deck
-        //ie either 2-9, 'A', 'K', 'J', or 'Q'
+        //Test is to certify that draw is valid
+        //ie resulting String card is 2-9, 'A', 'K', 'J', or 'Q'
         String card = deck.draw();
 
         //Enhanced switch is from Java 12
@@ -32,7 +32,6 @@ public class BlackjackTest {
         assertTrue(testResult);
     }
 
-    //Test: that when you draw a card, the card is removed from the deck (so you cannot get a hand with eg 5 x 9s)
     @org.junit.Test
     public void testCardRemoval() {
         Deck deck = new Deck();
@@ -40,9 +39,4 @@ public class BlackjackTest {
         assertEquals(51, deck.getCards().size());
     }
 
-    @org.junit.Test
-    public void testPlay() {
-        Blackjack newGame = new Blackjack();
-        newGame.play();
-    }
 }
