@@ -8,27 +8,6 @@ import static org.junit.Assert.*;
 public class BlackjackTest {
 
     @Test
-    public void testCalculateScoresWithAs() {
-        List<String> oneAHand = new ArrayList<>(List.of("A", "K"));    //11 or 21
-        List<String> twoAHand = new ArrayList<>(List.of("A", "A", "2"));    //4 or 14
-        List<String> threeAHand = new ArrayList<>(List.of("A", "A", "A"));  //3 or 13
-        List<String> noAHand = new ArrayList<>(List.of("2", "K", "Q"));
-
-        Blackjack blackjack = new Blackjack();
-        assertEquals(11, blackjack.calculateScores(oneAHand)[0]);
-        assertEquals(21, blackjack.calculateScores(oneAHand)[1]);
-
-        assertEquals(4, blackjack.calculateScores(twoAHand)[0]);
-        assertEquals(14, blackjack.calculateScores(twoAHand)[1]);
-
-        assertEquals(3, blackjack.calculateScores(threeAHand)[0]);
-        assertEquals(13, blackjack.calculateScores(threeAHand)[1]);
-
-        assertEquals(22, blackjack.calculateScores(noAHand)[0]);
-        assertEquals(0, blackjack.calculateScores(noAHand)[1]);
-    }
-
-    @Test
     public void testEvaluateHand() {
         Blackjack game = new Blackjack();
 
@@ -37,19 +16,19 @@ public class BlackjackTest {
         winningHand[1] = 9;
         assertEquals(0, game.evaluateHand(winningHand));
 
-        int[] winningHandAgain = new int[2];
-        winningHandAgain[0] = 7;
-        winningHandAgain[1] = 21;
-        assertEquals(0, game.evaluateHand(winningHandAgain));
+        int[] secondWinningHand = new int[2];
+        secondWinningHand[0] = 7;
+        secondWinningHand[1] = 21;
+        assertEquals(0, game.evaluateHand(secondWinningHand));
 
         int[] bothBustHand = new int[2];
         bothBustHand[0] = 28;
         bothBustHand[1] = 23;
         assertEquals(-1, game.evaluateHand(bothBustHand));
 
-        int[] startGameHand = new int[2];
-        startGameHand[0] = 9;   //hand[1] is 0 by default, no change
-        assertEquals(1, game.evaluateHand(startGameHand));
+        int[] exampleStarterHand = new int[2];
+        exampleStarterHand[0] = 9;   //hand[1] is 0 by default, no change
+        assertEquals(1, game.evaluateHand(exampleStarterHand));
 
         int[] oneBustStillValidHand = new int[2];
         oneBustStillValidHand[0] = 23;  //bust
@@ -65,6 +44,16 @@ public class BlackjackTest {
         oneBustAndNotValid[0] = 23;  //this calc is bust
         //oneBustAndNotValid[1] is 0 by default. 0 score means there are no aces in the hand so the hand only has 1 possible score.
         assertEquals(-1, game.evaluateHand(oneBustAndNotValid));
+
+        int[] scenarioOneAndThree = new int[2];
+        scenarioOneAndThree[0] = 11;
+        scenarioOneAndThree[1] = 21;
+        assertEquals(0, game.evaluateHand(scenarioOneAndThree));
+
+        int[] scenarioTwo = new int[2];
+        scenarioTwo[0] = 21;
+        scenarioTwo[1] = 31;
+        assertEquals(0, game.evaluateHand(scenarioTwo));
     }
 
     public void testPlay() {

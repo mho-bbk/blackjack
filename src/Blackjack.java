@@ -4,10 +4,8 @@ import java.util.Scanner;
 
 public class Blackjack {
 
-    private Deck deck = new Deck();
-    private static List<String> hand = new ArrayList<>();
-    private int[] scoreArray = new int[2];
-    int validHand = 1;
+    private final Deck deck = new Deck();
+    private final Hand mainHand = new Hand();
     boolean gameOver = false;
 
     public Blackjack() {
@@ -17,8 +15,6 @@ public class Blackjack {
     public void play() {
         System.out.println("Let's start the game! DEAL!");
         deal();
-        //Evaluate hand here in case 21 has been dealt
-        evaluateHand(scoreArray);
 
         if(!gameOver) {
             printGame();
@@ -29,11 +25,10 @@ public class Blackjack {
                 String userReply = scan.nextLine();
                 if (userReply.equals("H") || userReply.equals("h")) {
                     hit();
-                    printGame();
                 } else {
                     stand();
-                    printGame();
                 }
+                printGame();
             }
         }
     }
@@ -44,20 +39,23 @@ public class Blackjack {
      * After the 'deal', when a player wants a card they must 'hit'.
      */
     private void deal() {
-        hand.add(deck.draw());
-        hand.add(deck.draw());
-        updateScore();
+        mainHand.addCard(deck.draw());
+        mainHand.addCard(deck.draw());
+        mainHand.updateScore();
+
+        //Evaluate hand here in case 21 has been dealt
+        evaluateHand(mainHand.getScores());
     }
 
     private void hit() {
-        hand.add(deck.draw());
-        updateScore();
-        evaluateHand(scoreArray);
+        mainHand.addCard(deck.draw());
+        mainHand.updateScore();
+        evaluateHand(mainHand.getScores());
     }
 
     private void stand() {
-        evaluateHand(scoreArray);
-        System.out.println("Game finished with final score " + scoreArray[0] + " or " + scoreArray[1]);
+        evaluateHand(mainHand.getScores());
+        System.out.print("STAND! Game finished. ");
         gameOver = true;
     }
 
@@ -89,81 +87,7 @@ public class Blackjack {
         }
     }
 
-    /**
-     * Calculates the score(s) of the current hand.
-     * There may be two scores if there is an Ace in the hand. Else, the second score will be 0.
-     * @return int[] of size 2 representing score(s) of current hand
-     */
-    //TODO - temporarily public for testing?
-    public int[] calculateScores(List<String> hand) {
-        //Make a copy so we don't mutate the original instance by accident...
-        List<String> handCopy = new ArrayList<>(hand);
-
-        int[] scoreArray = new int[2];
-        int score = 0;
-
-        //First we calculate the score without A
-        for (String value: handCopy) {
-            try {
-                score += Integer.parseInt(value);
-            } catch(NumberFormatException nfe) {
-                if(value.equals("K") || value.equals("Q") || value.equals("J")) {
-                    score += 10;
-                }
-                //if the value is "A" do nothing
-            }
-        }
-
-        //No 2 As can ever both be 11 because that will bust the hand
-        //so if there is >1 A, then only 1 A may be 11, and the rest must be 1s.
-        int countOfA = (int) handCopy.stream().filter(s -> s.equals("A")).count();
-
-        if (countOfA == 0) {
-            scoreArray[0] = score;
-        } else if (countOfA == 1) {
-            int aIsOne = score + 1;
-            int aIsEleven = score + 11;
-            scoreArray[0] = aIsOne;
-            scoreArray[1] = aIsEleven;
-        } else {
-            int allAsAreOne = score + countOfA;
-            int oneAIsEleven = score + 11 + (countOfA - 1);
-            scoreArray[0] = allAsAreOne;
-            scoreArray[1] = oneAIsEleven;
-        }
-
-        return scoreArray;
-    }
-
-    private void updateScore() {
-        scoreArray = calculateScores(hand);
-    }
-
     public void printGame() {
-        printCurrentHand();
-        printCurrentDeck();
-        printScore();
-    }
-
-    public void printCurrentHand() {
-        System.out.println("Current Hand: " + hand.toString());
-    }
-
-    public void printCurrentDeck() {
-        System.out.println("Current Deck: " + deck.toString());
-    }
-
-    //only prints valid scores
-    //TODO - when the game goes bust, it prints 'Current Sco' bc takes off last 4 chars...
-    public void printScore() {
-        StringBuilder scoreString = new StringBuilder("Current Score: ");
-
-        for (int score: scoreArray) {
-            if(score != 0) {
-                scoreString.append(score).append(" or ");
-            }
-        }
-
-        System.out.println(scoreString.substring(0, scoreString.length() - 4));
+        mainHand.printHand();
     }
 }
