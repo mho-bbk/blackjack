@@ -77,11 +77,11 @@ public class Blackjack {
             System.out.println("Congratulations! You've won the game.");
             gameOver = true;
             return 0;
-        } else if (scoreArray[0] < 21 || scoreArray[1] < 21) {
+        } else if (scoreArray[0] > 21 && scoreArray[1] > 0 && scoreArray[1] < 21 || scoreArray[1] > 21 && scoreArray[0] > 0 && scoreArray[0] < 21) {
             //Hand is valid
             return 1;
         } else {
-            //Score must be > 21
+            //Both scores are > 21, or one is >21 and the other is 0
             System.out.println("BUST! Game over");
             gameOver = true;
             return -1;
