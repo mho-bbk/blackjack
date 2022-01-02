@@ -42,10 +42,14 @@ public class BlackjackTest {
         winningHandAgain[1] = 21;
         assertEquals(0, game.evaluateHand(winningHandAgain));
 
-        int[] bustHand = new int[2];
-        bustHand[0] = 28;
-        bustHand[1] = 23;
-        assertEquals(-1, game.evaluateHand(bustHand));
+        int[] bothBustHand = new int[2];
+        bothBustHand[0] = 28;
+        bothBustHand[1] = 23;
+        assertEquals(-1, game.evaluateHand(bothBustHand));
+
+        int[] startGameHand = new int[2];
+        startGameHand[0] = 9;   //hand[1] is 0 by default, no change
+        assertEquals(1, game.evaluateHand(startGameHand));
 
         int[] oneBustStillValidHand = new int[2];
         oneBustStillValidHand[0] = 23;  //bust
@@ -61,5 +65,9 @@ public class BlackjackTest {
         oneBustAndNotValid[0] = 23;  //this calc is bust
         //oneBustAndNotValid[1] is 0 by default. 0 score means there are no aces in the hand so the hand only has 1 possible score.
         assertEquals(-1, game.evaluateHand(oneBustAndNotValid));
+    }
+
+    public void testPlay() {
+        //TODO
     }
 }
