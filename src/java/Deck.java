@@ -1,12 +1,10 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 public class Deck {
 
-    private static List<String> cards = new ArrayList<>();
-//    private HashMap<Character, Integer> card_count = new HashMap<>();
+    private final List<String> cards = new ArrayList<>();
 
     public Deck() {
         //Every deck should have 4 x cards 2-10, scored as numbered
@@ -37,10 +35,18 @@ public class Deck {
         return card;
     }
 
+    /**
+     * Getter method for cards in the deck.
+     * @return the remaining cards in the deck (excluding those cards that have been removed)
+     */
     public List<String> getCards() {
         return cards;
     }
 
+    /**
+     * Prints the deck as its cards.
+     * @return a string representing the remaining cards in the deck.
+     */
     @Override
     public String toString() {
         return cards.toString();

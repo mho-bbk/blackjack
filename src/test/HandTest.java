@@ -13,7 +13,7 @@ public class HandTest {
         hand.addCard("K");
         hand.updateScore();
 
-        int[] scores = hand.getScores();
+        int[] scores = hand.getScore();
         assertEquals(11, scores[0]);
         assertEquals(21, scores[1]);
     }
@@ -28,7 +28,7 @@ public class HandTest {
         hand.addCard("A");
         hand.updateScore();
 
-        int[] scores = hand.getScores();
+        int[] scores = hand.getScore();
         assertEquals(11, scores[0]);
         assertEquals(21, scores[1]);
     }
@@ -42,7 +42,7 @@ public class HandTest {
         hand.addCard("A");
         hand.updateScore();
 
-        int[] scores = hand.getScores();
+        int[] scores = hand.getScore();
         assertEquals(3, scores[0]);
         assertEquals(13, scores[1]);
 
@@ -50,7 +50,7 @@ public class HandTest {
         hand.addCard("A");
         hand.updateScore();
 
-        scores = hand.getScores();
+        scores = hand.getScore();
         assertEquals(4, scores[0]);
         assertEquals(14, scores[1]);
     }
@@ -65,7 +65,7 @@ public class HandTest {
         hand.addCard("Q");
         hand.updateScore();
 
-        int[] scores = hand.getScores();
+        int[] scores = hand.getScore();
         assertEquals(22, scores[0]);
         assertEquals(0, scores[1]);
     }
@@ -80,7 +80,7 @@ public class HandTest {
         hand.addCard("A");
         hand.updateScore();
 
-        int[] scores = hand.getScores();
+        int[] scores = hand.getScore();
         assertEquals(21, scores[0]);
         assertEquals(31, scores[1]);
     }

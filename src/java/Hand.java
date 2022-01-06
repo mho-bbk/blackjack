@@ -10,6 +10,10 @@ public class Hand {
         //empty constructor
     }
 
+    /**
+     * Adds a card to the Hand
+     * @param card as a String that will be added to the hand.
+     */
     public void addCard(String card) {
         cards.add(card);
     }
@@ -59,24 +63,33 @@ public class Hand {
         return scoreArray;
     }
 
+    /**
+     * Updates the total score of the cards within this Hand.
+     */
     public void updateScore() {
         scores = calculateScores(cards);
     }
 
-    public List<String> getCards() {
-        return cards;
-    }
-
-    public int[] getScores() {
+    /**
+     * Gets the two possible scores of the Hand.
+     * @return int[] of size 2 representing the score(s) of the Hand
+     */
+    public int[] getScore() {
         return scores;
     }
 
+    /**
+     * Prints the Hand's cards and the total score(s) of the Hand.
+     */
     public void printHand() {
         System.out.println("Hand " + this.hashCode() + ": " + cards);  //temporarily using hashcode as identifier for this hand
         printScore();
     }
 
-    //only prints scores that are not 0 (as 0 is a result of no aces in the hand)
+    /**
+     * Prints the score(s) of the Hand in human-friendly format.
+     * Only prints scores that are not 0 (as 0 is only the result of no aces in the Hand)
+     */
     private void printScore() {
         StringBuilder scoreString = new StringBuilder("Score: ");
 

@@ -4,7 +4,7 @@ public class Blackjack {
 
     private final Deck deck = new Deck();
     private final Hand mainHand = new Hand();
-    boolean gameOver = false;
+    private boolean gameOver = false;
 
     public Blackjack() {
         //empty constructor
@@ -12,21 +12,21 @@ public class Blackjack {
 
     public void play() {
         System.out.println("Let's start the game! DEAL!");
-        deal();
+        deal(mainHand);
 
         if(!gameOver) {
-            printGame();
+            printHand();
 
             Scanner scan = new Scanner(System.in);
             while(!gameOver) {
                 System.out.println("Hit or Stand? Enter 'H' to hit and any other letter to Stand.");
                 String userReply = scan.nextLine();
                 if (userReply.equals("H") || userReply.equals("h")) {
-                    hit();
+                    hit(mainHand);
                 } else {
-                    stand();
+                    stand(mainHand);
                 }
-                printGame();
+                printHand();
             }
         }
     }
@@ -36,23 +36,23 @@ public class Blackjack {
      * 'Deal' is used to initiate the game.
      * After the 'deal', when a player wants a card they must 'hit'.
      */
-    private void deal() {
-        mainHand.addCard(deck.draw());
-        mainHand.addCard(deck.draw());
-        mainHand.updateScore();
+    private void deal(Hand hand) {
+        hand.addCard(deck.draw());
+        hand.addCard(deck.draw());
+        hand.updateScore();
 
         //Evaluate hand here in case 21 has been dealt
-        evaluateHand(mainHand.getScores());
+        evaluateHand(hand.getScore());
     }
 
-    private void hit() {
-        mainHand.addCard(deck.draw());
-        mainHand.updateScore();
-        evaluateHand(mainHand.getScores());
+    private void hit(Hand hand) {
+        hand.addCard(deck.draw());
+        hand.updateScore();
+        evaluateHand(hand.getScore());
     }
 
-    private void stand() {
-        evaluateHand(mainHand.getScores());
+    private void stand(Hand hand) {
+        evaluateHand(hand.getScore());
         System.out.print("STAND! Game finished. ");
         gameOver = true;
     }
@@ -85,7 +85,7 @@ public class Blackjack {
         }
     }
 
-    public void printGame() {
+    public void printHand() {
         mainHand.printHand();
     }
 }
