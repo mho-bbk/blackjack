@@ -79,6 +79,31 @@ public class Hand {
     }
 
     /**
+     * Tests whether the hand is valid and returns
+     *  0 if 21 has been achieved
+     *  1 if 21 has not been achieved but the hand is still valid
+     *  -1 if the hand is no longer valid ie is bust.
+     *
+     * A hand is no longer valid when the score is 22 or more.
+     * A game is over when the hand is either not valid OR score of 21 has been reached.
+     * @return int representing hand validity
+     */
+    public int evaluate() {
+        if(scores[0] == 21 || scores[1] == 21) {
+            //Won the game
+            return 0;
+        } else if (scores[0] > 0 && scores[0] < 21 ||
+                scores[1] > 0 && scores[1] < 21) {
+            //Hand is valid
+            return 1;
+        } else {
+            //Hand not valid
+            //Both scores are > 21, or one is > 21 and the other is 0 (no ace)
+            return -1;
+        }
+    }
+
+    /**
      * Prints the Hand's cards and the total score(s) of the Hand.
      */
     public void printHand() {
