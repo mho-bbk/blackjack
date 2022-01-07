@@ -3,7 +3,7 @@ package blackjack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hand {
+public class Hand implements Comparable {
 
     private final List<String> cards = new ArrayList<>();
     private int[] scores = new int[2];
@@ -144,5 +144,11 @@ public class Hand {
 
     public String getName() {
         return name;
+    }
+
+    //TODO - tests
+    @Override
+    public int compareTo(Object o) {
+        return 1;
     }
 }

@@ -161,4 +161,37 @@ public class HandTest {
 
         hand.printHand();
     }
+
+    @Test
+    public void testCompareHands() {
+        Hand handOne = new Hand();
+        Hand handTwo = new Hand();
+
+        //Scenario 1
+        handOne.addCard("K");
+        handOne.addCard("A");
+        handOne.update();
+
+        handTwo.addCard("3");
+        handTwo.addCard("5");
+        handTwo.addCard("Q");
+        handTwo.update();
+
+        assertEquals(1, handOne.compareTo(handTwo));
+
+        //Bust hand vs non-bust hand
+        handOne = new Hand();
+        handTwo = new Hand();
+
+        handOne.addCard("K");
+        handOne.addCard("K");
+        handOne.addCard("2");
+        handOne.update();
+
+        handTwo.addCard("10");
+        handTwo.addCard("8");
+        handTwo.update();
+
+        assertEquals(-1, handOne.compareTo(handTwo));
+    }
 }
