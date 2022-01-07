@@ -48,8 +48,11 @@ public class PlayerVsAiDealerBlackJack extends Blackjack {
                 }
             }
 
+            //AI Dealer's turn begins
+            System.out.println("LET'S REVEAL THE DEALER'S HAND...!");
+            ai.printHand();
+
             while(!gameOver) {
-                //AI Dealer's turn begins
                 dealerPlay();
             }
         }
@@ -58,13 +61,10 @@ public class PlayerVsAiDealerBlackJack extends Blackjack {
     }
 
     private void dealerPlay() {
-        System.out.println("LET'S REVEAL THE DEALER'S HAND...!");
-        ai.printHand();
-
         //Dealer makes automated decisions:
         //If >16, stand. Ace must be 11 if this makes the score >16. Else, hit.
-        int[] aiScores = ai.getScores();
-        if(aiScores[0] > 16 && aiScores[0] < 22 || aiScores[1] > 16 && aiScores[1] < 22) {
+        if(ai.getScores()[0] > 16 && ai.getScores()[0] < 22 ||
+                ai.getScores()[1] > 16 && ai.getScores()[1] < 22) {
             stand(ai);
             //Game is over when the dealer stands
             gameOver = true;
@@ -89,32 +89,36 @@ public class PlayerVsAiDealerBlackJack extends Blackjack {
 
 
     private void printWinner() {
-        int[] playerScores = player.getScores();
-        int[] dealerScores = ai.getScores();
-        int bestValidPlayerScore;
-        int bestValidDealerScore;
+//        int[] playerScores = player.getScores();
+//        int[] dealerScores = ai.getScores();
+//        int bestValidPlayerScore;
+//        int bestValidDealerScore;
+//
+//        //TODO - this needs unit tests (manual tests = inconsistent coverage)
+//        if(playerScores[0] < 22 && playerScores[0] > playerScores[1] ) {
+//            bestValidPlayerScore = playerScores[0];
+//        } else if(playerScores[1] < 22 && playerScores[1] > playerScores[0]) {
+//            bestValidPlayerScore = playerScores[1];
+//        } else {
+//            bestValidPlayerScore = 0;
+//        }
+//
+//        if(dealerScores[0] < 22 && dealerScores[0] > dealerScores[1]) {
+//            bestValidDealerScore = dealerScores[0];
+//        } else if (dealerScores[1] < 22 && dealerScores[1] > dealerScores[0]) {
+//            bestValidDealerScore = dealerScores[1];
+//        } else {
+//            bestValidDealerScore = 0;
+//        }
 
-        //TODO - this needs unit tests (manual tests = inconsistent coverage)
-        if(playerScores[0] < 22 && playerScores[0] > playerScores[1] ) {
-            bestValidPlayerScore = playerScores[0];
-        } else if(playerScores[1] < 22 && playerScores[1] > playerScores[0]) {
-            bestValidPlayerScore = playerScores[1];
-        } else {
-            bestValidPlayerScore = 0;
-        }
+        Hand winner = player.compare(ai);
 
-        if(dealerScores[0] < 22 && dealerScores[0] > dealerScores[1]) {
-            bestValidDealerScore = dealerScores[0];
-        } else if (dealerScores[1] < 22 && dealerScores[1] > dealerScores[0]) {
-            bestValidDealerScore = dealerScores[1];
-        } else {
-            bestValidDealerScore = 0;
-        }
-
-        if(bestValidDealerScore > bestValidPlayerScore) {
-            System.out.println("Dealer wins!");
-        } else if (bestValidDealerScore < bestValidPlayerScore){
-            System.out.println(player.getName() + " wins!");
+        if (winner!= null) {
+            if (winner.equals(ai)) {
+                System.out.println("Dealer wins!");
+            } else if (winner.equals(player)) {
+                System.out.println(player.getName() + " wins!");
+            }
         } else {
             System.out.println(player.getName() + " and the Dealer drew.");
         }

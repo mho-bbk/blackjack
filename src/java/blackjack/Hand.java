@@ -1,9 +1,11 @@
 package blackjack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
-public class Hand implements Comparable {
+public class Hand {
 
     private final List<String> cards = new ArrayList<>();
     private int[] scores = new int[2];
@@ -146,9 +148,55 @@ public class Hand implements Comparable {
         return name;
     }
 
-    //TODO - tests
+
+    /**
+     * Compares two hands, such that the Hand that has the greater valid score is returned.
+     * @param otherHand to be compared against this hand
+     * @return hand with the greater valid score, or null if neither hand is greater than the other
+     */
+    public Hand compare(Hand otherHand) {
+        int[] otherHandScores = otherHand.getScores();
+
+        int thisBestValidScore;
+        int otherBestValidScore;
+
+        if(scores[0] < 22 && scores[0] > scores[1] ) {
+            thisBestValidScore = scores[0];
+        } else if(scores[1] < 22 && scores[1] > scores[0]) {
+            thisBestValidScore = scores[1];
+        } else {
+            thisBestValidScore = 0;
+        }
+
+        if(otherHandScores[0] < 22 && otherHandScores[0] > otherHandScores[1]) {
+            otherBestValidScore = otherHandScores[0];
+        } else if (otherHandScores[1] < 22 && otherHandScores[1] > otherHandScores[0]) {
+            otherBestValidScore = otherHandScores[1];
+        } else {
+            otherBestValidScore = 0;
+        }
+
+        if(otherBestValidScore > thisBestValidScore) {
+            return otherHand;
+        } else if (otherBestValidScore < thisBestValidScore){
+            return this;
+        } else {
+            return null;
+        }
+    }
+
     @Override
-    public int compareTo(Object o) {
-        return 1;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Hand hand = (Hand) o;
+        return status == hand.status && cards.equals(hand.cards) && Arrays.equals(scores, hand.scores) && name.equals(hand.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(cards, name, status);
+        result = 31 * result + Arrays.hashCode(scores);
+        return result;
     }
 }

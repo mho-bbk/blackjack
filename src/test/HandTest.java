@@ -177,7 +177,7 @@ public class HandTest {
         handTwo.addCard("Q");
         handTwo.update();
 
-        assertEquals(1, handOne.compareTo(handTwo));
+        assertEquals(handOne, handOne.compare(handTwo));
 
         //Bust hand vs non-bust hand
         handOne = new Hand();
@@ -192,6 +192,21 @@ public class HandTest {
         handTwo.addCard("8");
         handTwo.update();
 
-        assertEquals(-1, handOne.compareTo(handTwo));
+        assertEquals(handTwo, handOne.compare(handTwo));
+
+        //Hands draw
+        handOne = new Hand();
+        handTwo = new Hand();
+
+        handOne.addCard("7");
+        handOne.addCard("4");
+        handOne.addCard("8");
+        handOne.update();
+
+        handTwo.addCard("10");
+        handTwo.addCard("9");
+        handTwo.update();
+
+        assertNull(handOne.compare(handTwo));
     }
 }
