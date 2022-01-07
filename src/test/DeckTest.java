@@ -1,3 +1,5 @@
+import blackjack.Deck;
+
 import static org.junit.Assert.*;
 
 public class DeckTest {
