@@ -136,6 +136,7 @@ public class HandTest {
         hand.addCard("10");
         hand.addCard("8");
         hand.addCard("3");
+        hand.update();
         Assert.assertEquals(-1, hand.getStatus());
     }
 

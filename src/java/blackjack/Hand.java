@@ -134,10 +134,6 @@ public class Hand {
         System.out.println(scoreString.substring(0, scoreString.length() - 4));
     }
 
-    /**
-     * Gets the two possible scores of the Hand.
-     * @return int[] of size 2 representing the score(s) of the Hand
-     */
     public int[] getScores() {
         return scores;
     }
@@ -150,45 +146,6 @@ public class Hand {
 
     public String getName() {
         return name;
-    }
-
-
-    /**
-     * Compares this hand to another hand, such that the Hand that has the greater valid score (the 'winning' hand) is returned.
-     * @param otherHand to be compared against this hand
-     * @return hand with the greater valid score, or null if neither hand is greater than the other
-     */
-    public Hand compareWinning(Hand otherHand) {
-        int[] otherHandScores = otherHand.getScores();
-
-        int thisBestValidScore = 0;
-        int otherBestValidScore = 0;
-
-        if (scores[0] > 0 && scores[0] < 22) {
-            thisBestValidScore = scores[0];
-            if(scores[1] > 0 && scores[1] < 22 && scores[1] > thisBestValidScore) {
-                thisBestValidScore = scores[1];
-            }
-        } else if (scores[1] > 0 && scores[1] < 22) {
-            thisBestValidScore = scores[1];
-        }
-
-        if (otherHandScores[0] > 0 && otherHandScores[0] < 22) {
-            otherBestValidScore = otherHandScores[0];
-            if (otherHandScores[1] > 0 && otherHandScores[1] < 22 && otherHandScores[1] > otherBestValidScore) {
-                otherBestValidScore = otherHandScores[1];
-            }
-        } else if (otherHandScores[1] > 0 && otherHandScores[1] < 22) {
-            otherBestValidScore = otherHandScores[1];
-        }
-
-        if(otherBestValidScore > thisBestValidScore) {
-            return otherHand;
-        } else if (otherBestValidScore < thisBestValidScore){
-            return this;
-        } else {
-            return null;
-        }
     }
 
     @Override

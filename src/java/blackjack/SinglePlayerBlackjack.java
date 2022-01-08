@@ -23,7 +23,7 @@ public class SinglePlayerBlackjack extends Blackjack {
         mainHand.printHand();
 
         //Evaluate hand here in case 21 has been dealt and game can end
-        checkHandStatus(mainHand);
+        evaluate(mainHand);
 
         if(!gameOver) {
             while(!gameOver) {
@@ -31,14 +31,13 @@ public class SinglePlayerBlackjack extends Blackjack {
                 String userReply = scan.nextLine();
                 if (userReply.equals("H") || userReply.equals("h")) {
                     hit(mainHand);
-                    mainHand.printHand();
-                    checkHandStatus(mainHand);
+                    evaluate(mainHand);
                 } else {
                     stand(mainHand);
-                    System.out.println("Game finished.");
-                    printGame();
                     gameOver = true;
+                    System.out.println("Game finished.");
                 }
+                mainHand.printHand();
             }
         }
     }
