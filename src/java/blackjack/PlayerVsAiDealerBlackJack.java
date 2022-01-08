@@ -17,7 +17,9 @@ public class PlayerVsAiDealerBlackJack extends Blackjack {
         Scanner scan = new Scanner(System.in);
         System.out.println("Let's start the game! First, what's your name? ");
         String playerName = scan.nextLine();
-        player.addName(playerName);
+        if(!playerName.equals("")) {
+            player.addName(playerName);
+        }
 
 
         System.out.println("Alright, let's DEAL!");
@@ -31,7 +33,7 @@ public class PlayerVsAiDealerBlackJack extends Blackjack {
         checkHandStatus(player);
 
         if(!gameOver) {
-            System.out.println(playerName + " goes first.");
+            System.out.println(player.getName() + " goes first.");
             boolean playersTurn = true;
 
             while(!gameOver && playersTurn) {
@@ -111,7 +113,7 @@ public class PlayerVsAiDealerBlackJack extends Blackjack {
 //            bestValidDealerScore = 0;
 //        }
 
-        Hand winner = player.compare(ai);
+        Hand winner = player.compareWinning(ai);
 
         if (winner!= null) {
             if (winner.equals(ai)) {

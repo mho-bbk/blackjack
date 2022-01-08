@@ -17,7 +17,7 @@ public abstract class Blackjack {
 
     /**
      * Players are initially dealt two cards.
-     * After the 'deal', when a player wants a card they must 'hit'. Else, they must 'stand'
+     * After the 'deal', when a player wants a card they must 'hit'. Else, they must 'stand'.
      */
     protected void deal(Hand hand) {
         hand.addCard(deck.draw());
@@ -26,7 +26,7 @@ public abstract class Blackjack {
     }
 
     /**
-     * Each hit draws one card and adds it to a player's hand
+     * Each hit draws one card and adds it to a player's hand.
      * @param hand of the player that a card is added to.
      */
     protected void hit(Hand hand) {
@@ -45,7 +45,7 @@ public abstract class Blackjack {
 
     /**
      * Checks whether the hand remains valid or whether the game is over (21 or bust).
-     * @param hand that's status will be checked
+     * @param hand that's status will be checked.
      */
     protected void checkHandStatus(Hand hand) {
         if(hand.getStatus() == 0) {

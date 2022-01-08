@@ -17,7 +17,7 @@ public class Hand {
     }
 
     /**
-     * Adds a card to the blackjack.Hand
+     * Adds a card to the Hand.
      * @param card as a String that will be added to the hand.
      */
     public void addCard(String card) {
@@ -25,7 +25,24 @@ public class Hand {
     }
 
     /**
-     * Calculates the score(s) of this hand.
+     * Allows the name of a hand to be customised, else the default name is 'Player'.
+     * @param name of the hand.
+     */
+    public void addName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Updates the total score of the cards within this Hand.
+     * Re-evaluates the status of the hand based on the updated scores.
+     */
+    public void update() {
+        scores = calculateScores(cards);
+        evaluate();
+    }
+
+    /**
+     * Helper method. Calculates the score(s) of this hand.
      * There may be two scores if there is an Ace in the hand. Else, the second score will be 0.
      * @return int[] of size 2 representing score(s) of this hand
      */
@@ -70,24 +87,7 @@ public class Hand {
     }
 
     /**
-     * Updates the total score of the cards within this Hand.
-     * Re-evaluates the status of the hand based on the updated scores.
-     */
-    public void update() {
-        scores = calculateScores(cards);
-        evaluate();
-    }
-
-    /**
-     * Gets the two possible scores of the blackjack.Hand.
-     * @return int[] of size 2 representing the score(s) of the blackjack.Hand
-     */
-    public int[] getScores() {
-        return scores;
-    }
-
-    /**
-     * Tests whether the hand is valid and sets the status to:
+     * Helper method. Tests whether the hand is valid and sets its status to:
      *  0 if 21 has been achieved
      *  1 if 21 has not been achieved but the hand is still valid
      *  -1 if the hand is no longer valid ie is bust.
@@ -110,12 +110,6 @@ public class Hand {
         }
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public List<String> getCards() { return cards; }
-
     /**
      * Prints the Hand's cards and the total score(s) of the Hand.
      */
@@ -125,7 +119,7 @@ public class Hand {
     }
 
     /**
-     * Prints the score(s) of the Hand in human-friendly format.
+     * Helper method. Prints the score(s) of the Hand in human-friendly format.
      * Only prints scores that are not 0 (as 0 is only the result of no aces in the Hand)
      */
     private void printScore() {
@@ -140,9 +134,19 @@ public class Hand {
         System.out.println(scoreString.substring(0, scoreString.length() - 4));
     }
 
-    public void addName(String name) {
-        this.name = name;
+    /**
+     * Gets the two possible scores of the Hand.
+     * @return int[] of size 2 representing the score(s) of the Hand
+     */
+    public int[] getScores() {
+        return scores;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public List<String> getCards() { return cards; }
 
     public String getName() {
         return name;
@@ -150,30 +154,32 @@ public class Hand {
 
 
     /**
-     * Compares two hands, such that the Hand that has the greater valid score is returned.
+     * Compares this hand to another hand, such that the Hand that has the greater valid score (the 'winning' hand) is returned.
      * @param otherHand to be compared against this hand
      * @return hand with the greater valid score, or null if neither hand is greater than the other
      */
-    public Hand compare(Hand otherHand) {
+    public Hand compareWinning(Hand otherHand) {
         int[] otherHandScores = otherHand.getScores();
 
-        int thisBestValidScore;
-        int otherBestValidScore;
+        int thisBestValidScore = 0;
+        int otherBestValidScore = 0;
 
-        if(scores[0] < 22 && scores[0] > scores[1] ) {
+        if (scores[0] > 0 && scores[0] < 22) {
             thisBestValidScore = scores[0];
-        } else if(scores[1] < 22 && scores[1] > scores[0]) {
+            if(scores[1] > 0 && scores[1] < 22 && scores[1] > thisBestValidScore) {
+                thisBestValidScore = scores[1];
+            }
+        } else if (scores[1] > 0 && scores[1] < 22) {
             thisBestValidScore = scores[1];
-        } else {
-            thisBestValidScore = 0;
         }
 
-        if(otherHandScores[0] < 22 && otherHandScores[0] > otherHandScores[1]) {
+        if (otherHandScores[0] > 0 && otherHandScores[0] < 22) {
             otherBestValidScore = otherHandScores[0];
-        } else if (otherHandScores[1] < 22 && otherHandScores[1] > otherHandScores[0]) {
+            if (otherHandScores[1] > 0 && otherHandScores[1] < 22 && otherHandScores[1] > otherBestValidScore) {
+                otherBestValidScore = otherHandScores[1];
+            }
+        } else if (otherHandScores[1] > 0 && otherHandScores[1] < 22) {
             otherBestValidScore = otherHandScores[1];
-        } else {
-            otherBestValidScore = 0;
         }
 
         if(otherBestValidScore > thisBestValidScore) {
@@ -190,12 +196,12 @@ public class Hand {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Hand hand = (Hand) o;
-        return status == hand.status && cards.equals(hand.cards) && Arrays.equals(scores, hand.scores) && name.equals(hand.name);
+        return status == hand.status && cards.equals(hand.cards) && Arrays.equals(scores, hand.scores);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(cards, name, status);
+        int result = Objects.hash(cards, status);
         result = 31 * result + Arrays.hashCode(scores);
         return result;
     }

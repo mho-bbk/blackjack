@@ -14,7 +14,9 @@ public class SinglePlayerBlackjack extends Blackjack {
         Scanner scan = new Scanner(System.in);
         System.out.println("Let's start the game! First, what's your name? ");
         String playerName = scan.nextLine();
-        mainHand.addName(playerName);
+        if(!playerName.equals("")) {
+            mainHand.addName(playerName);
+        }
 
         System.out.println("Alright! Let's DEAL.");
         deal(mainHand);
