@@ -1,5 +1,7 @@
 package blackjack;
 
+import blackjack.util.HandUtil;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,7 +22,6 @@ public class PlayerVsAiDealerBlackJack extends Blackjack {
         if(!playerName.equals("")) {
             player.addName(playerName);
         }
-
 
         System.out.println("Alright, let's DEAL!");
         deal(player);
@@ -112,17 +113,21 @@ public class PlayerVsAiDealerBlackJack extends Blackjack {
 //        } else {
 //            bestValidDealerScore = 0;
 //        }
-
-        Hand winner = player.compareWinning(ai);
-
-        if (winner!= null) {
-            if (winner.equals(ai)) {
-                System.out.println("Dealer wins!");
-            } else if (winner.equals(player)) {
-                System.out.println(player.getName() + " wins!");
-            }
+        if(player.getStatus() == 0) {
+            //Player has 21, and they have won (regardless of if Dealer also has 21)
+            //Do nothing - congratulations statement handled elsewhere...
         } else {
-            System.out.println(player.getName() + " and the Dealer drew.");
+            Hand winner = HandUtil.getWinner(player, ai);
+
+            if (winner != null) {
+                if (winner.equals(ai)) {
+                    System.out.println("Dealer wins!");
+                } else if (winner.equals(player)) {
+                    System.out.println(player.getName() + " wins!");
+                }
+            } else {
+                System.out.println(player.getName() + " and the Dealer drew.");
+            }
         }
     }
 }

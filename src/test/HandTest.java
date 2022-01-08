@@ -169,80 +169,12 @@ public class HandTest {
     }
 
     @Test
-    public void compareWinningHandsTest() {
-        //Two non-21 valid scores
-        //Two bust hands - return null
-
-        Hand handOne = new Hand();
-        Hand handTwo = new Hand();
-
-        //21 vs other valid score
-        handOne.addCard("K");
-        handOne.addCard("A");
-        handOne.update();
-
-        handTwo.addCard("3");
-        handTwo.addCard("5");
-        handTwo.addCard("Q");
-        handTwo.update();
-
-        assertEquals(handOne, handOne.compareWinning(handTwo));
-
-        //Bust hand vs valid hand
-        handOne = new Hand();
-        handTwo = new Hand();
-
-        handOne.addCard("K");
-        handOne.addCard("K");
-        handOne.addCard("2");
-        handOne.update();
-
-        handTwo.addCard("10");
-        handTwo.addCard("8");
-        handTwo.update();
-
-        assertEquals(handTwo, handOne.compareWinning(handTwo));
-
-        //Hands draw
-        handOne = new Hand();
-        handTwo = new Hand();
-
-        handOne.addCard("7");
-        handOne.addCard("4");
-        handOne.addCard("8");
-        handOne.update();
-
-        handTwo.addCard("10");
-        handTwo.addCard("9");
-        handTwo.update();
-
-        assertNull(handOne.compareWinning(handTwo));
-
-        //Hand with two scores (one valid, one bust) vs bust hand (no aces)
-        handOne = new Hand();
-        handTwo = new Hand();
-
-        handOne.addCard("7");
-        handOne.addCard("4");
-        handOne.addCard("A");
-        handOne.addCard("5");
-        handOne.update();
-
-        handTwo.addCard("6");
-        handTwo.addCard("9");
-        handTwo.addCard("K");
-        handTwo.update();
-
-        assertEquals(handOne, handOne.compareWinning(handTwo));
-    }
-
-    @Test
     public void printHand() {
         Hand hand = new Hand();
 
         //Example starting hand
         hand.addCard("9");
-        hand.addCard("0");
+        hand.addCard("6");
         hand.update();
 
         hand.printHand();
