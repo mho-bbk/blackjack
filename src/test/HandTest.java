@@ -1,10 +1,28 @@
 import blackjack.Hand;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.Assert.*;
 
 public class HandTest {
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @Before
+    public void setUp() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @After
+    public void tearDown() {
+        System.setOut(originalOut);
+    }
 
     @Test
     public void addCardAndUpdateScoreOneAceTest() {
@@ -170,14 +188,38 @@ public class HandTest {
     }
 
     @Test
-    public void printHand() {
+    public void printNumbersHandTest() {
         Hand hand = new Hand();
 
-        //Example starting hand
         hand.addCard("9");
         hand.addCard("6");
         hand.update();
-
         hand.printHand();
+
+        assertEquals("Player's Hand: [9, 6]. Score: 15", outContent.toString().trim());
+    }
+
+    @Test
+    public void printBustHandTest() {
+        Hand hand = new Hand();
+        hand.addCard("K");
+        hand.addCard("Q");
+        hand.addCard("10");
+        hand.update();
+        hand.printHand();
+
+        assertEquals("Player's Hand: [K, Q, 10]. Score: 30", outContent.toString().trim());
+    }
+
+    @Test
+    public void printAceHandTest() {
+        Hand hand = new Hand();
+        hand.addCard("A");
+        hand.addCard("3");
+        hand.addCard("9");
+        hand.update();
+        hand.printHand();
+
+        assertEquals("Player's Hand: [A, 3, 9]. Score: 13 or 23", outContent.toString().trim());
     }
 }

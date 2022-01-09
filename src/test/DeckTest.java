@@ -11,18 +11,18 @@ public class DeckTest {
     }
 
     @org.junit.Test
-    public void testDeckContent() {
+    public void testToStringOverridden() {
         Deck deck = new Deck();
-        //tests toString method which is overridden and helps us to see cards
-        System.out.println(deck);
+        assertEquals("[K, Q, J, A, 2, 3, 4, 5, 6, 7, 8, 9, 10, " +
+                "K, Q, J, A, 2, 3, 4, 5, 6, 7, 8, 9, 10, " +
+                "K, Q, J, A, 2, 3, 4, 5, 6, 7, 8, 9, 10, " +
+                "K, Q, J, A, 2, 3, 4, 5, 6, 7, 8, 9, 10]", deck.toString());
     }
 
     @org.junit.Test
-    public void testDraw() {
+    public void testDrawIsValid() {
         Deck deck = new Deck();
 
-        //Test is to certify that draw is valid
-        //ie resulting String card is 2-9, 'A', 'K', 'J', or 'Q'
         String card = deck.draw();
 
         //Enhanced switch is from Java 12

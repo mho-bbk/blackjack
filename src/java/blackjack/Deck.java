@@ -21,13 +21,12 @@ public class Deck {
                 cards.add(String.valueOf(j));
             }
         }
-
     }
 
     /**
      * Draws a card from the deck at random.
      * When a card is drawn, that card must be removed from the deck.
-     * @return String representing the number (not the suit) of the card drawn
+     * @return String representing the number/letter (not the suit) of the card drawn
      */
     public String draw() {
         Random numGenerator = new Random();

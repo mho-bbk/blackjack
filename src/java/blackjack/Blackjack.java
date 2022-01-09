@@ -45,7 +45,7 @@ public abstract class Blackjack {
 
     /**
      * Checks whether the hand remains valid or whether the game is over
-     * (a score in the hand is 21 or all scores of the hand are bust).
+     * (ie a score in the hand is 21 or all scores of the hand are bust).
      * @param hand that's status will be checked.
      */
     protected void evaluate(Hand hand) {

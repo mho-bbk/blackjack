@@ -18,7 +18,7 @@ public class Hand {
 
     /**
      * Adds a card to the Hand.
-     * @param card as a String that will be added to the hand.
+     * @param card String that will be added to the hand.
      */
     public void addCard(String card) {
         cards.add(card);
@@ -101,11 +101,11 @@ public class Hand {
             status = 0;
         } else if (scores[0] > 0 && scores[0] < 21 ||
                 scores[1] > 0 && scores[1] < 21) {
-            //blackjack.Hand is valid
+            //Hand is valid
             status = 1;
         } else {
-            //blackjack.Hand not valid
-            //Both scores are > 21, or one is > 21 and the other is 0 (no ace)
+            //Hand not valid
+            //Both scores are >21, or one is >21 and the other is 0 (no ace)
             status = -1;
         }
     }
@@ -114,24 +114,26 @@ public class Hand {
      * Prints the Hand's cards and the total score(s) of the Hand.
      */
     public void printHand() {
-        System.out.println(name + "'s Hand: " + cards);
+        System.out.print(name + "'s Hand: " + cards + ". ");
         printScore();
     }
 
     /**
      * Helper method. Prints the score(s) of the Hand in human-friendly format.
-     * Only prints scores that are not 0 (as 0 is only the result of no aces in the Hand)
+     * Only prints scores that are not 0 (as 0 is only the result of no aces in the Hand, not a legitimate score).
      */
     private void printScore() {
         StringBuilder scoreString = new StringBuilder("Score: ");
 
-        for (int score: scores) {
-            if(score != 0) {
-                scoreString.append(score).append(" or ");
-            }
+        if(scores[0] != 0) {
+            scoreString.append(scores[0]);
         }
 
-        System.out.println(scoreString.substring(0, scoreString.length() - 4));
+        if(scores[1] != 0) {
+            scoreString.append(" or ").append(scores[1]);
+        }
+
+        System.out.println(scoreString);
     }
 
     public int[] getScores() {
