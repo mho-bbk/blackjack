@@ -86,7 +86,7 @@ public class PlayerVsAiDealerBlackJack extends Blackjack {
      */
     private void printOneCard(Hand hand) {
         List<String> cards = hand.getCards();
-        System.out.println("Dealer's Hand: " + "[" + cards.get(0) + ", ???]");
+        System.out.println(hand.getName() + "'s Hand: " + "[" + cards.get(0) + ", ???]");
     }
 
     @Override
@@ -98,6 +98,7 @@ public class PlayerVsAiDealerBlackJack extends Blackjack {
 
     /**
      * Helper method. Prints the winner of this game.
+     * //TODO - make this more generic (decouple from dealer/player exclusively)
      */
     private void printWinner() {
         if(player.getStatus() == 0) {
