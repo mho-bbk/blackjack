@@ -13,8 +13,8 @@ Other:
 
 + All modes of Blackjack only use one Deck of 52 cards. (A 'mode' being either: single player or player vs dealer.)
 + That when a card is drawn from the Deck, the card is removed from the Deck and added to a Hand.
-+ No 2 A's can ever both be 11 because that will bust the hand. So if there is > 1 A, then only 1 A may be 11, and the rest must be 1's.
-+ Once the choice to stand is made, that player ends their turn and does not get another turn for the rest of the game.  
++ No 2 A's can ever both be 11 because that will bust the hand. So if there is >1 A, then only 1 A may be 11, and the rest must be 1's.
++ Once a player chooses to stand, that player ends their turn and does not get another turn for the rest of the game.  
 + In a single player game, there's no winner if the player stands and they are not on 21.
 
 
